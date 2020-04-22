@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:zerokata/check_victory.dart';
 import 'package:zerokata/ai.dart';
 import 'package:zerokata/victory_line.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 class GameState extends State<Game> {
   BuildContext _context;
@@ -13,16 +15,19 @@ class GameState extends State<Game> {
   Victory victory;
   AI ai;
   Color playerColor, aiColor;
-
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     ai = new AI(field,playerChar,aiChar);
     playerColor = Colors.lightBlue;
-    aiColor = Colors.orange;
+    aiColor = Colors.red;
 
-    return new Scaffold(
+    return  Scaffold(
+      key: _scaffoldKey,
         appBar: new AppBar(
-          title: new Text(widget.title),
+          title: new Text(widget.title,style: GoogleFonts.lato(color: Colors.white),),
+          backgroundColor: Colors.black,
+          centerTitle: true,
         ),
         body: new Center (
             child: new Stack(
@@ -180,7 +185,7 @@ class GameState extends State<Game> {
   }
 
   void _checkForVictory() {
-    var victory = VictoryChecker.checkForVictory(field, playerChar);
+    victory = VictoryChecker.checkForVictory(field, playerChar);
     if (victory != null) {
       String message;
 
@@ -192,7 +197,7 @@ class GameState extends State<Game> {
         message = 'Draw';
       }
       print(message);
-      Scaffold.of(_context).showSnackBar(new SnackBar(
+      _scaffoldKey.currentState.showSnackBar(new SnackBar(
         content: new Text(message),
         duration: const Duration(minutes: 1),
         action: new SnackBarAction(
@@ -212,4 +217,19 @@ class GameState extends State<Game> {
     }
   }
 }
+//      new Timer(const Duration(milliseconds: 1000), ()
+//      {
+//        setState(() {
+//          victory = null;
+//          field = [
+//            ['', '', ''],
+//            ['', '', ''],
+//            ['', '', '']
+//          ];
+//          playerTurn = true;
+//        });
+//      });
+//    }}}
+
+
 
