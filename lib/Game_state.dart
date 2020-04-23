@@ -5,7 +5,9 @@ import 'package:zerokata/check_victory.dart';
 import 'package:zerokata/ai.dart';
 import 'package:zerokata/victory_line.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:zerokata/custom_alertDialog.dart';
 
+final primaryColor = const Color(0xFF616161);
 
 class GameState extends State<Game> {
   BuildContext _context;
@@ -19,16 +21,17 @@ class GameState extends State<Game> {
   @override
   Widget build(BuildContext context) {
     ai = new AI(field,playerChar,aiChar);
-    playerColor = Colors.lightBlue;
-    aiColor = Colors.red;
+    playerColor = Colors.white;
+    aiColor = Colors.black;
 
     return  Scaffold(
       key: _scaffoldKey,
         appBar: new AppBar(
-          title: new Text(widget.title,style: GoogleFonts.lato(color: Colors.white),),
-          backgroundColor: Colors.black,
+          title: new Text(widget.title,style: GoogleFonts.amaticaSc(color:Colors.black ,fontSize: 28,fontWeight: FontWeight.w700,)),
+          backgroundColor: Colors.grey[800],
           centerTitle: true,
         ),
+        backgroundColor: primaryColor,
         body: new Center (
             child: new Stack(
                 children: [
@@ -53,12 +56,12 @@ class GameState extends State<Game> {
                 children: [
                   new Container(
                       margin: const EdgeInsets.only(left: 16.0, right: 16.0),
-                      color: Colors.grey,
+                      color: Colors.black,
                       height: 5.0
                   ),
                   new Container(
                       margin: const EdgeInsets.only(left: 16.0, right: 16.0),
-                      color: Colors.grey,
+                      color: Colors.black,
                       height: 5.0
                   ),
                 ]
@@ -68,12 +71,12 @@ class GameState extends State<Game> {
                 children: [
                   new Container(
                       margin: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-                      color: Colors.grey,
+                      color: Colors.black,
                       width: 5.0
                   ),
                   new Container(
                       margin: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-                      color: Colors.grey,
+                      color: Colors.black,
                       width: 5.0
                   ),
                 ]
@@ -138,7 +141,7 @@ class GameState extends State<Game> {
                   } });
             },
             child: new Text(field[row][column], style: new TextStyle(
-              fontSize: 82.0,
+              fontSize: 82.0,fontFamily: 'Chalk',
               color:field[row][column].isNotEmpty && field[row][column] == playerChar ? playerColor : aiColor,
             )))
     );
@@ -187,36 +190,58 @@ class GameState extends State<Game> {
   void _checkForVictory() {
     victory = VictoryChecker.checkForVictory(field, playerChar);
     if (victory != null) {
-      String message;
+      String message, title;
 
       if (victory.winner == 'p1') {
-        message = 'You Win!';
+        message = 'WON';
+        title = 'You';
       } else if (victory.winner == 'p2') {
-        message = 'AI Win!';
+        message = 'LOOSE';
+        title = 'You';
       } else if (victory.winner == 'draw') {
         message = 'Draw';
+        title = 'Nobody Won';
       }
       print(message);
-      _scaffoldKey.currentState.showSnackBar(new SnackBar(
-        content: new Text(message),
-        duration: const Duration(minutes: 1),
-        action: new SnackBarAction(
-            label: 'Retry',
-            onPressed: () {
-              setState(() {
-                victory = null;
-                field = [
-                  ['', '', ''],
-                  ['', '', ''],
-                  ['', '', '']
-                ];
-                playerTurn = true;
-              });
-            }),
-      ));
+      new Timer(const Duration(milliseconds: 1000), () {
+        setState(() {
+          victory = null;
+          field = [
+            ['', '', ''],
+            ['', '', ''],
+            ['', '', '']
+          ];
+          playerTurn = true;
+          showDialog(context: context, builder: (BuildContext context) =>
+              CustomDialog(title: title,
+                  descrip: message, type: 'ai'));
+        });
+      });
     }
+
   }
 }
+
+
+//      _scaffoldKey.currentState.showSnackBar(new SnackBar(
+//        content: new Text(message),
+//        duration: const Duration(minutes: 1),
+//        action: new SnackBarAction(
+//            label: 'Retry',
+//            onPressed: () {
+//              setState(() {
+//                victory = null;
+//                field = [
+//                  ['', '', ''],
+//                  ['', '', ''],
+//                  ['', '', '']
+//                ];
+//                playerTurn = true;
+//              });
+//            }),
+//      ));
+
+
 //      new Timer(const Duration(milliseconds: 1000), ()
 //      {
 //        setState(() {
