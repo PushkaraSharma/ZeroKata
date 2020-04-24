@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:zerokata/Game.dart';
+import 'package:zerokata/ai_mode/Game.dart';
 import 'dart:async';
-import 'package:zerokata/check_victory.dart';
-import 'package:zerokata/ai.dart';
-import 'package:zerokata/victory_line.dart';
+import 'package:zerokata/victory/check_victory.dart';
+import 'package:zerokata/ai_decisions/ai.dart';
+import 'package:zerokata/victory/victory_line.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zerokata/custom_alertDialog.dart';
+import 'package:zerokata/widgets/custom_alertDialog.dart';
 
 final primaryColor = const Color(0xFF616161);
 
