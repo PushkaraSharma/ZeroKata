@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zerokata/startup_screens/startup_screen.dart';
+import 'package:zerokata/startup_screens/FirstView.dart';
 
 
 void main() => runApp(new MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.grey,
       ),
-      home:  FirstView(),
+      home:  FirstView(title:"ZeroKata"),
     );
   }
 }
