@@ -3,6 +3,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:zerokata/constants.dart';
 import 'package:zerokata/user.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 final primaryColor = const Color(0xFF616161);
 class UserList extends StatefulWidget {
@@ -60,7 +63,7 @@ class UserListState extends State<UserList> {
               SizedBox(
                 width: 10,
               ),
-              Text('${_users[index].name}', style: GoogleFonts.amaticaSc(color:Colors.black ,fontSize: 26,fontWeight: FontWeight.w600,),),
+              AutoSizeText('${_users[index].name}',maxLines: 1, style: GoogleFonts.amaticaSc(color:Colors.black ,fontSize: 26,fontWeight: FontWeight.w600,),),
               Spacer(),
               RaisedButton(
                 elevation: 10,
@@ -73,15 +76,9 @@ class UserListState extends State<UserList> {
                 onPressed: (){
                   Scaffold.of(context).showSnackBar(
                   SnackBar(content: Text('clicked on ${_users[index].name}')));
+                  invite(_users[index]);
                 },
               ),
-//              IconButton(
-//              icon: Icon(Icons.videogame_asset),
-//              color: Colors.white,
-//              onPressed: () {
-//                Scaffold.of(context).showSnackBar(
-//                  SnackBar(content: Text('clicked on ${_users[index].name}')));
-//              })
               ],
               ),
               ),
@@ -119,17 +116,37 @@ class UserListState extends State<UserList> {
   User _parseUser(String userId, Map<dynamic, dynamic> user) {
     String name, photoUrl, pushId;
     user.forEach((key, value) {
-      if (key == Constants.NAME) {
+      if (key == NAME) {
         name = value as String;
       }
-      if (key == Constants.PHOTO_URL) {
+      if (key == PHOTO_URL) {
         photoUrl = value as String;
       }
-      if (key == Constants.PUSH_ID) {
+      if (key == PUSH_ID) {
         pushId = value as String;
       }
     });
 
     return User(userId, name, photoUrl, pushId);
+  }
+
+  invite(User user) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var username = prefs.getString(USER_NAME);
+    var pushId = prefs.getString(PUSH_ID);
+    var userId = prefs.getString(USER_ID);
+    username = username.replaceAll(' ','_');
+    print(username);
+
+    var base = 'https://us-central1-zerokata-bf5ca.cloudfunctions.net';
+    String dataURL = '$base/sendNotification2?to=${user.pushId}&fromPushId=$pushId&fromId=$userId&fromName=$username&type=invite';
+    print(dataURL);
+    String gameId = '$userId-${user.id}';
+    FirebaseDatabase.instance
+        .reference()
+        .child('games')
+        .child(gameId)
+        .set(null);
+    http.Response response = await http.get(dataURL);
   }
 }
