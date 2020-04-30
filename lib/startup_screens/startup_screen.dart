@@ -11,13 +11,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:zerokata/startup_screens/FirstView.dart';
 import 'package:zerokata/constants.dart';
-import 'package:zerokata/user.dart';
+import 'package:zerokata/Users/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zerokata/util.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
-import '../user_list.dart';
+import '../Users/user_list.dart';
 
 
 
@@ -175,7 +175,7 @@ class FirstViewState extends State<FirstView> {
     return Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         child: Stack(children: <Widget>[
-          Container(width: 500,
+          Container(width: 400,
               padding: EdgeInsets.all(15.0),
               decoration: BoxDecoration(
                   color: primaryColor,
@@ -188,10 +188,11 @@ class FirstViewState extends State<FirstView> {
                   children: <Widget>[
                     SizedBox(height: 5,),
                     AutoSizeText(
-                      '$fromName has invited you to play!',maxLines: 1,textAlign: TextAlign.center,style: GoogleFonts.amaticaSc(color: Colors.black, fontSize: 32, fontWeight: FontWeight.w700,),),
-                    SizedBox(height: 15,),
+                      '$fromName has invited you to play!',maxLines: 2,textAlign: TextAlign.center,style: GoogleFonts.amaticaSc(color: Colors.black, fontSize: 32, fontWeight: FontWeight.w700,),),
+                    SizedBox(height: 20,),
                     Row(
                       children: <Widget>[
+                        SizedBox(width: 20,),
                         RaisedButton(elevation: 8,
                             color: Colors.black,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                             child: Padding(padding: const EdgeInsets.fromLTRB(8,5,8,5),
@@ -202,11 +203,12 @@ class FirstViewState extends State<FirstView> {
                         Spacer(),
                         RaisedButton(elevation: 8,
                             color: Colors.black,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                            child: Padding(padding: const EdgeInsets.fromLTRB(8,5,8,5),
+                            child: Padding(padding: const EdgeInsets.fromLTRB(10,7,10,7),
                               child: AutoSizeText("Decline",maxLines:1,style: GoogleFonts.amaticaSc(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700,)),),
                             onPressed: () {
                               Navigator.pop(context);
                             }),
+                        SizedBox(width: 20,),
                       ])
                   ]))])
              );}
@@ -290,7 +292,7 @@ class FirstViewState extends State<FirstView> {
     var username = prefs.getString(USER_NAME);
     var pushId = prefs.getString(PUSH_ID);
     var userId = prefs.getString(USER_ID);
-    username = username.replaceAll(' ','_');
+   // username = username.replaceAll(' ','_');
 
     var base = 'https://us-central1-zerokata-bf5ca.cloudfunctions.net';
     String dataURL =

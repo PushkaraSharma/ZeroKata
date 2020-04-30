@@ -51,19 +51,22 @@ class CustomDialog extends StatelessWidget {
     );
   }
   showTextForAI(BuildContext context){
-    if(type!=null && descrip=="LOOSE")
+    if(type=='ai' && descrip=="LOOSE")
       {
         return AutoSizeText("Cant you beat a bot.Lets try once more",maxLines:1,style: GoogleFonts.amaticaSc(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600,));
       }
     else{return SizedBox(height: 0.0,);}
   }
   showPrimaryButton(BuildContext context){
+    String button = 'Play Again';
+    if(type=='exit')
+      {button = 'NO';}
       return  RaisedButton(
         elevation: 8,
           color: Colors.black,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(12,7,12,7),
-            child: AutoSizeText("Play Again",maxLines:1,style: GoogleFonts.amaticaSc(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w700,)),
+            child: AutoSizeText(button,maxLines:1,style: GoogleFonts.amaticaSc(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w700,)),
           ),
           onPressed: () {
             Navigator.of(context).pop();
@@ -71,8 +74,11 @@ class CustomDialog extends StatelessWidget {
       );}
 
   showSecondButton(BuildContext context) {
+    String button = 'Exit';
+    if(type=='exit')
+    {button = 'YES';}
       return FlatButton(
-        child: AutoSizeText("Exit",maxLines: 1,style: GoogleFonts.amaticaSc(color: Colors.black, fontSize: 22, fontWeight: FontWeight.w700,)),
+        child: AutoSizeText(button,maxLines: 1,style: GoogleFonts.amaticaSc(color: Colors.black, fontSize: 22, fontWeight: FontWeight.w700,)),
         onPressed: (){
           Navigator.of(context).pop();
           Navigator.push(context,MaterialPageRoute(builder: (context) =>  FirstView()));

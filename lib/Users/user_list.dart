@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:zerokata/constants.dart';
-import 'package:zerokata/user.dart';
+import 'package:zerokata/Users/user.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:zerokata/widgets/loading.dart';
 
 final primaryColor = const Color(0xFF616161);
 class UserList extends StatefulWidget {
@@ -28,15 +29,15 @@ class UserListState extends State<UserList> {
   @override
   Widget build(BuildContext context) {
     print('build');
+    print(_users.isEmpty);
 
-    return Scaffold(
+    return _users.isEmpty?Loading(): Scaffold(
         appBar: AppBar(
           title: Text(widget.title,style: GoogleFonts.amaticaSc(color:Colors.black ,fontSize: 28,fontWeight: FontWeight.w700,),),
           backgroundColor: Colors.grey[800],
           centerTitle: true,
         ),
-        body:
-        ListView.builder(
+        body:new ListView.builder(
             itemCount: _users.length, itemBuilder: _buildListRow));
   }
 
@@ -135,7 +136,7 @@ class UserListState extends State<UserList> {
     var username = prefs.getString(USER_NAME);
     var pushId = prefs.getString(PUSH_ID);
     var userId = prefs.getString(USER_ID);
-    username = username.replaceAll(' ','_');
+//    username = username.replaceAll(' ','_');
     print(username);
 
     var base = 'https://us-central1-zerokata-bf5ca.cloudfunctions.net';
