@@ -325,7 +325,7 @@ class FirstViewState extends State<FirstView> {
       String gameId = '${currentUser.uid}-$fromId';
       Navigator.of(context).push(new MaterialPageRoute(
           builder: (context) => new Online(
-              title: 'Tic Tac Toe',
+              title: 'Online ZeroKata',
               type: "wifi",
               me: 'X',
               gameId: gameId,

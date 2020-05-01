@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:zerokata/widgets/loading.dart';
+import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 
 final primaryColor = const Color(0xFF616161);
 class UserList extends StatefulWidget {
@@ -66,20 +67,41 @@ class UserListState extends State<UserList> {
               ),
               AutoSizeText('${_users[index].name}',maxLines: 1, style: GoogleFonts.amaticaSc(color:Colors.black ,fontSize: 26,fontWeight: FontWeight.w600,),),
               Spacer(),
-              RaisedButton(
-                elevation: 10,
+              ArgonTimerButton(
+                initialTimer: 0,
+                height: 40,
+                width: 80,
+                minWidth: 100,
+                borderRadius: 12.0,
+                borderSide:BorderSide(color: Colors.white,width: 2) ,elevation: 10,
                 color: Colors.black,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(1,1,1,2),
-                  child: Text('Invite',style: GoogleFonts.amaticaSc(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600)),
-                ),
-                onPressed: (){
-                  Scaffold.of(context).showSnackBar(
-                  SnackBar(content: Text('clicked on ${_users[index].name}')));
-                  invite(_users[index]);
+                child: Text("Invite",style: GoogleFonts.amaticaSc(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600),),
+                loader: (timeLeft){
+                  return Text("Wait...$timeLeft",style: GoogleFonts.amaticaSc(color: Colors.red,fontSize: 18,fontWeight: FontWeight.w600),);
                 },
-              ),
+                onTap:(startTimer,btnState){
+                  if(btnState==ButtonState.Idle)
+                    {
+                      startTimer(60);
+                      Scaffold.of(context).showSnackBar(
+                      SnackBar(content: Text('clicked on ${_users[index].name}')));
+                      invite(_users[index]);
+                    }
+                },),
+//              RaisedButton(
+//                elevation: 10,
+//                color: Colors.black,
+//                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+//                child: Padding(
+//                  padding: const EdgeInsets.fromLTRB(1,1,1,2),
+//                  child: Text('Invite',style: GoogleFonts.amaticaSc(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600)),
+//                ),
+//                onPressed: (){
+//                  Scaffold.of(context).showSnackBar(
+//                  SnackBar(content: Text('clicked on ${_users[index].name}')));
+//                  invite(_users[index]);
+//                },
+   //           ),
               ],
               ),
               ),
@@ -103,15 +125,18 @@ class UserListState extends State<UserList> {
 //              ))));
 
   void _fetchUsers() async {
-    var snapshot =
-    await FirebaseDatabase.instance.reference().child('users').once();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userid = prefs.getString(USER_ID);
+    var snapshot = await FirebaseDatabase.instance.reference().child('users').once();
     Map<String, dynamic> users = snapshot.value.cast<String, dynamic>();
     users.forEach((userId, userMap) {
       User user = _parseUser(userId, userMap);
+      if(userid!=userId)
+        {
       setState(() {
         _users.add(user);
       });
-    });
+    }});
   }
 
   User _parseUser(String userId, Map<dynamic, dynamic> user) {
