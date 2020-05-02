@@ -140,9 +140,6 @@ class FirstViewState extends State<FirstView> {
                   ),
                   onPressed: (){
                     openUserList();
-//                    _signInWithGoogle().then((user) {
-//                      _saveUserToFirebase(user);
-//                     });
                     },
                 ),
                 SizedBox(height: height*0.05,),
@@ -212,21 +209,7 @@ class FirstViewState extends State<FirstView> {
                       ])
                   ]))])
              );}
-//    return AlertDialog(
-//      content: Text('$fromName invites you to play!'),
-//      actions: <Widget>[
-//        FlatButton(
-//          child: Text('Decline'),
-//          onPressed: () {},
-//        ),
-//        FlatButton(
-//          child: Text('Accept'),
-//          onPressed: () {
-//            accept(message);
-//          },
-//        ),
-//      ],
-//    );
+
 
   Future<FirebaseUser> _signInWithGoogle() async {
     GoogleSignInAccount googleUser = await _googleSignIn.signIn();
@@ -246,7 +229,7 @@ class FirstViewState extends State<FirstView> {
     await saveUserToFirebase(user);
     print("sae user ok");
 //    Navigator.of(context).pushNamed('userList');
-    Navigator.push(context,MaterialPageRoute(builder: (context) =>  UserList(title: 'All users')));
+    Navigator.push(context,MaterialPageRoute(builder: (context) =>  UserList(title: 'Registered Players')));
   }
 
   Future<void> saveUserToFirebase(FirebaseUser user) async {
@@ -321,7 +304,7 @@ class FirstViewState extends State<FirstView> {
       showItemDialog(context, message);
     } else if (type == 'accept') {
       var currentUser = await _auth.currentUser();
-
+      Navigator.pop(context);
       String gameId = '${currentUser.uid}-$fromId';
       Navigator.of(context).push(new MaterialPageRoute(
           builder: (context) => new Online(

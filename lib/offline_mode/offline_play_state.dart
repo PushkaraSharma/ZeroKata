@@ -150,11 +150,11 @@ class OfflineState extends State<Offline> {
     setState(() {
       if (playerTurn && field[row][column] == '') {
         field[row][column] = 'O';
+        playerTurn = !playerTurn;
       } else if (!playerTurn && field[row][column] == '') {
         field[row][column] = 'X';
+        playerTurn = !playerTurn;
       }
-
-      playerTurn = !playerTurn;
       _checkForVictory();
     });
   }
@@ -201,41 +201,6 @@ class OfflineState extends State<Offline> {
 
   }
 }
-//  void _showWinDialog(String winner) {
-//    showDialog(
-//        barrierDismissible: false,
-//        context: context,
-//        builder: (BuildContext context) {
-//          return AlertDialog(
-//            title: Text('WINNER IS: ' + winner),
-//            actions: <Widget>[
-//              FlatButton(
-//                child: Text('Play Again!'),
-//                onPressed: () {
-//                  setState(() {
-//                    victory = null;
-//                    field = [
-//                      ['', '', ''],
-//                      ['', '', ''],
-//                      ['', '', '']
-//                    ];
-//                    playerTurn = true;
-//                    Navigator.of(context).pop();
-//                  });
-//                },
-//              )
-//            ],
-//          );
-//        });
-//    if(winner=="X")
-//      {
-//        playerXscore+=1;
-//      }
-//    else if(winner=="O")
-//      {
-//        playerOscore+=1;
-//      }
-//  }
 
 
 
