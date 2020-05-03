@@ -161,7 +161,7 @@ class UserListState extends State<UserList> {
     var username = prefs.getString(USER_NAME);
     var pushId = prefs.getString(PUSH_ID);
     var userId = prefs.getString(USER_ID);
-//    username = username.replaceAll(' ','_');
+    username = username.replaceAll(' ','_');
     print(username);
 
     var base = 'https://us-central1-zerokata-bf5ca.cloudfunctions.net';

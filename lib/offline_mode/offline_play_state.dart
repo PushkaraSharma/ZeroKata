@@ -192,7 +192,7 @@ class OfflineState extends State<Offline> {
 //        else if(winner=="O")
 //         {playerOscore+=1;}
 
-          showDialog(context: context, builder: (BuildContext context) =>
+          showDialog(barrierDismissible:false,context: context, builder: (BuildContext context) =>
               CustomDialog(title: title,
                   descrip: message));
         });

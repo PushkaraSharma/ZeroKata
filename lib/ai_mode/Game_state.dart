@@ -212,7 +212,7 @@ class GameState extends State<Game> {
             ['', '', '']
           ];
           playerTurn = true;
-          showDialog(context: context, builder: (BuildContext context) =>
+          showDialog(barrierDismissible:false,context: context, builder: (BuildContext context) =>
               CustomDialog(title: title,
                   descrip: message, type: 'ai'));
         });
@@ -221,40 +221,5 @@ class GameState extends State<Game> {
 
   }
 }
-
-
-//      _scaffoldKey.currentState.showSnackBar(new SnackBar(
-//        content: new Text(message),
-//        duration: const Duration(minutes: 1),
-//        action: new SnackBarAction(
-//            label: 'Retry',
-//            onPressed: () {
-//              setState(() {
-//                victory = null;
-//                field = [
-//                  ['', '', ''],
-//                  ['', '', ''],
-//                  ['', '', '']
-//                ];
-//                playerTurn = true;
-//              });
-//            }),
-//      ));
-
-
-//      new Timer(const Duration(milliseconds: 1000), ()
-//      {
-//        setState(() {
-//          victory = null;
-//          field = [
-//            ['', '', ''],
-//            ['', '', ''],
-//            ['', '', '']
-//          ];
-//          playerTurn = true;
-//        });
-//      });
-//    }}}
-
 
 

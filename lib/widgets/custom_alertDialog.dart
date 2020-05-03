@@ -11,7 +11,9 @@ class CustomDialog extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Dialog(
+    return new WillPopScope(
+        onWillPop: () async => false,
+    child:Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       child: Stack(children: <Widget>[
         Container(width: 600,
@@ -48,7 +50,7 @@ class CustomDialog extends StatelessWidget {
           ),
         )
       ],),
-    );
+    ));
   }
   showTextForAI(BuildContext context){
     if(type=='ai' && descrip=="LOOSE")
@@ -79,11 +81,13 @@ class CustomDialog extends StatelessWidget {
     {button = 'YES';}
       return FlatButton(
         child: AutoSizeText(button,maxLines: 1,style: GoogleFonts.amaticaSc(color: Colors.black, fontSize: 22, fontWeight: FontWeight.w700,)),
-        onPressed: (){
+        onPressed: () {
           Navigator.of(context).pop();
-          Navigator.push(context,MaterialPageRoute(builder: (context) =>  FirstView()));
-        },
-      );
+          //Navigator.push(context,MaterialPageRoute(builder: (context) =>  FirstView()));
+          Navigator.pushAndRemoveUntil(
+            context, MaterialPageRoute(builder: (context) => FirstView()),
+                (Route<dynamic> route) => false,);
+        });
     }
   }
 

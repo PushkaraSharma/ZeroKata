@@ -157,19 +157,17 @@ class FirstViewState extends State<FirstView> {
     print('show dialog ');
 
     new Timer(const Duration(milliseconds: 200), (){
-      showDialog<bool>(
-        context: context,
-        builder: (_) => buildDialog(context, message),
-      );
+      showDialog<bool>(barrierDismissible:false, context: context, builder: (_) => buildDialog(context, message),);
 
-//      Navigator.of(context).pushNamed('singleGame');
     });
   }
 
   Widget buildDialog(BuildContext context, Map<String, dynamic> message) {
     var noti = (message["data"]);
     var fromName = noti['fromName'];
-    return Dialog(
+    return new WillPopScope(
+        onWillPop: () async => false,
+       child:Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         child: Stack(children: <Widget>[
           Container(width: 400,
@@ -208,7 +206,7 @@ class FirstViewState extends State<FirstView> {
                         SizedBox(width: 20,),
                       ])
                   ]))])
-             );}
+             ));}
 
 
   Future<FirebaseUser> _signInWithGoogle() async {
@@ -275,7 +273,7 @@ class FirstViewState extends State<FirstView> {
     var username = prefs.getString(USER_NAME);
     var pushId = prefs.getString(PUSH_ID);
     var userId = prefs.getString(USER_ID);
-   // username = username.replaceAll(' ','_');
+    username = username.replaceAll(' ','_');
 
     var base = 'https://us-central1-zerokata-bf5ca.cloudfunctions.net';
     String dataURL =
@@ -287,7 +285,7 @@ class FirstViewState extends State<FirstView> {
 
     Navigator.of(context).push(new MaterialPageRoute(
         builder: (context) => new Online(
-            title: 'Tic Tac Toe',
+            title: 'Online ZeroKata',
             type: "wifi",
             me: 'O',
             gameId: gameId,
