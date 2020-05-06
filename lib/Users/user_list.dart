@@ -15,12 +15,14 @@ class UserList extends StatefulWidget {
 
   UserList({Key key, this.title}) : super(key: key);
 
+
   @override
   UserListState createState() => UserListState();
 }
 
 class UserListState extends State<UserList> {
   List<User> _users = List<User>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
@@ -32,7 +34,7 @@ class UserListState extends State<UserList> {
     print('build');
     print(_users.isEmpty);
 
-    return _users.isEmpty?Loading(): Scaffold(
+    return _users.isEmpty?Loading(): Scaffold(key: _scaffoldKey,
         appBar: AppBar(
           title: Text(widget.title,style: GoogleFonts.amaticaSc(color:Colors.black ,fontSize: 28,fontWeight: FontWeight.w700,),),
           backgroundColor: Colors.grey[800],
@@ -73,7 +75,7 @@ class UserListState extends State<UserList> {
                 width: 80,
                 minWidth: 100,
                 borderRadius: 12.0,
-                borderSide:BorderSide(color: Colors.white,width: 2) ,elevation: 10,
+                borderSide: BorderSide(color: Colors.white, width: 2) ,elevation: 10,
                 color: Colors.black,
                 child: Text("Invite",style: GoogleFonts.amaticaSc(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600),),
                 loader: (timeLeft){
@@ -83,46 +85,14 @@ class UserListState extends State<UserList> {
                   if(btnState==ButtonState.Idle)
                     {
                       startTimer(60);
-                      Scaffold.of(context).showSnackBar(
-                      SnackBar(content: Text('clicked on ${_users[index].name}')));
+//                      Scaffold.of(context).showSnackBar(
+//                      SnackBar(content: Text('clicked on ${_users[index].name}'))
+//                      );
                       invite(_users[index]);
                     }
-                },),
-//              RaisedButton(
-//                elevation: 10,
-//                color: Colors.black,
-//                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-//                child: Padding(
-//                  padding: const EdgeInsets.fromLTRB(1,1,1,2),
-//                  child: Text('Invite',style: GoogleFonts.amaticaSc(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600)),
-//                ),
-//                onPressed: (){
-//                  Scaffold.of(context).showSnackBar(
-//                  SnackBar(content: Text('clicked on ${_users[index].name}')));
-//                  invite(_users[index]);
-//                },
-   //           ),
-              ],
-              ),
-              ),
-              ),],
-              ),
-   ));
+                },),],),),),],),
+           ));
 
-//  Widget _buildListRow(BuildContext context, int index) => Container(
-//      height: 56.0,
-//      child: InkWell(
-//          onTap: () {
-//            Scaffold.of(context).showSnackBar(
-//                SnackBar(content: Text('clicked on ${_users[index].name}')));
-//          },
-//          child: Container(
-//              padding: EdgeInsets.all(16.0),
-//              alignment: Alignment.centerLeft,
-//              child: Text(
-//                '${_users[index].name}',
-//                style: TextStyle(fontSize: 18.0),
-//              ))));
 
   void _fetchUsers() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

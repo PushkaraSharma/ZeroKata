@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zerokata/ai_mode/Game.dart';
 import 'package:zerokata/offline_mode/offline_play.dart';
@@ -19,12 +22,10 @@ import 'dart:async';
 
 import '../Users/user_list.dart';
 
-
-
 final primaryColor = const Color(0xFF616161);
 
 class FirstViewState extends State<FirstView> {
-  final FirebaseMessaging _firebaseMessaging =  FirebaseMessaging();
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -45,7 +46,7 @@ class FirstViewState extends State<FirstView> {
         handleMessage(message);
       },
     );
-    _firebaseMessaging.getToken().then((token){
+    _firebaseMessaging.getToken().then((token) {
       print(token);
     });
     _firebaseMessaging.requestNotificationPermissions(
@@ -56,7 +57,7 @@ class FirstViewState extends State<FirstView> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final height =  MediaQuery.of(context).size.height;
+    final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: Container(
@@ -68,9 +69,18 @@ class FirstViewState extends State<FirstView> {
             padding: const EdgeInsets.all(15.0),
             child: Column(
               children: <Widget>[
-                SizedBox(height: height*0.04,),
-                AutoSizeText('ZERO KATA',maxLines:1,style: GoogleFonts.amaticaSc(color:Colors.black ,fontSize: 60,fontWeight: FontWeight.w700)),
-                SizedBox(height: height*0.06,),
+                SizedBox(
+                  height: height * 0.04,
+                ),
+                AutoSizeText('ZERO KATA',
+                    maxLines: 1,
+                    style: GoogleFonts.amaticaSc(
+                        color: Colors.black,
+                        fontSize: 60,
+                        fontWeight: FontWeight.w700)),
+                SizedBox(
+                  height: height * 0.06,
+                ),
                 Expanded(
                   flex: 2,
                   child: Container(
@@ -102,51 +112,131 @@ class FirstViewState extends State<FirstView> {
                     ),
                   ),
                 ),
-               // Text("Let's go back to childhood",textAlign: TextAlign.center,style: TextStyle(fontSize: 38,color: Colors.white,),),
-                SizedBox(height: height*0.05,),
+                // Text("Let's go back to childhood",textAlign: TextAlign.center,style: TextStyle(fontSize: 38,color: Colors.white,),),
+                SizedBox(
+                  height: height * 0.05,
+                ),
                 RaisedButton(
                   elevation: 10,
                   color: Colors.black,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                      side: BorderSide(color: Colors.white)),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(15,10,15,10),
-                    child: AutoSizeText('Play with A.I.',maxLines: 1,style: GoogleFonts.amaticaSc(color: Colors.white,fontSize: 24,fontWeight: FontWeight.w600)),
+                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                    child: AutoSizeText('Play with A.I.',
+                        maxLines: 1,
+                        style: GoogleFonts.amaticaSc(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600)),
                   ),
-                  onPressed: (){
-                    Navigator.push(context,MaterialPageRoute(builder: (context) =>  Game(title: 'ZeroKata v/s A.I.')));
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Game(title: 'ZeroKata v/s A.I.')));
                   },
                 ),
-                SizedBox(height: height*0.03,),
+                SizedBox(
+                  height: height * 0.03,
+                ),
                 RaisedButton(
                   elevation: 10,
                   color: Colors.black,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                      side: BorderSide(color: Colors.white)),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(15,10,15,10),
-                    child: AutoSizeText('Play Offline',maxLines: 1,style: GoogleFonts.amaticaSc(color: Colors.white,fontSize: 24,fontWeight: FontWeight.w600)),
+                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                    child: AutoSizeText('Play Offline',
+                        maxLines: 1,
+                        style: GoogleFonts.amaticaSc(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600)),
                   ),
-                  onPressed: (){
-                    Navigator.push(context,MaterialPageRoute(builder: (context) =>  Offline(title: 'ZeroKata Offline')));
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Offline(title: 'ZeroKata Offline')));
                   },
                 ),
-                SizedBox(height: height*0.03,),
+                SizedBox(
+                  height: height * 0.03,
+                ),
                 RaisedButton(
                   elevation: 10,
                   color: Colors.black,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                      side: BorderSide(color: Colors.white)),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(15,10,15,10),
-                    child: AutoSizeText('Play Online',maxLines: 1,style: GoogleFonts.amaticaSc(color: Colors.white,fontSize: 24,fontWeight: FontWeight.w600)),
+                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                    child: AutoSizeText('Play Online',
+                        maxLines: 1,
+                        style: GoogleFonts.amaticaSc(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600)),
                   ),
-                  onPressed: (){
-                    openUserList();
-                    },
+                  onPressed: () {
+                    try {
+                      InternetAddress.lookup('google.com').then((result) {
+                        if (result.isNotEmpty &&
+                            result[0].rawAddress.isNotEmpty) {
+                          openUserList();
+                        } else {
+                          _showdialog();
+                        }
+                      }).catchError((error) {
+                        _showdialog();
+                      });
+                    } on SocketException catch (_) {
+                      _showdialog();
+                    }
+                  },
                 ),
-                SizedBox(height: height*0.05,),
+                SizedBox(
+                  height: height * 0.05,
+                ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void _showdialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: primaryColor,
+        elevation: 15,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(18))),
+        title: Text('No Internet!!',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.amaticaSc(
+                color: Colors.black,
+                fontSize: 28,
+                fontWeight: FontWeight.w700)),
+        content: Text("You need Internet to play Online",
+            style: GoogleFonts.amaticaSc(color: Colors.white, fontSize: 18)),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Exit",
+                style: GoogleFonts.amaticaSc(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600)),
+          ),
+        ],
       ),
     );
   }
@@ -156,9 +246,12 @@ class FirstViewState extends State<FirstView> {
 
     print('show dialog ');
 
-    new Timer(const Duration(milliseconds: 200), (){
-      showDialog<bool>(barrierDismissible:false, context: context, builder: (_) => buildDialog(context, message),);
-
+    new Timer(const Duration(milliseconds: 200), () {
+      showDialog<bool>(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) => buildDialog(context, message),
+      );
     });
   }
 
@@ -167,47 +260,88 @@ class FirstViewState extends State<FirstView> {
     var fromName = noti['fromName'];
     return new WillPopScope(
         onWillPop: () async => false,
-       child:Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-        child: Stack(children: <Widget>[
-          Container(width: 400,
-              padding: EdgeInsets.all(15.0),
-              decoration: BoxDecoration(
-                  color: primaryColor,
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(30.0),
-                  boxShadow: [BoxShadow(
-                        color: Colors.black, blurRadius: 30)]),
-              child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    SizedBox(height: 5,),
+        child: Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)),
+            child: Stack(children: <Widget>[
+              Container(
+                  width: 400,
+                  padding: EdgeInsets.all(15.0),
+                  decoration: BoxDecoration(
+                      color: primaryColor,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(30.0),
+                      boxShadow: [
+                        BoxShadow(color: Colors.black, blurRadius: 30)
+                      ]),
+                  child:
+                      Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                    SizedBox(
+                      height: 5,
+                    ),
                     AutoSizeText(
-                      '$fromName has invited you to play!',maxLines: 2,textAlign: TextAlign.center,style: GoogleFonts.amaticaSc(color: Colors.black, fontSize: 32, fontWeight: FontWeight.w700,),),
-                    SizedBox(height: 20,),
-                    Row(
-                      children: <Widget>[
-                        SizedBox(width: 20,),
-                        RaisedButton(elevation: 8,
-                            color: Colors.black,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                            child: Padding(padding: const EdgeInsets.fromLTRB(8,5,8,5),
-                              child: AutoSizeText("Accept",maxLines:1,style: GoogleFonts.amaticaSc(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700,)),),
-                            onPressed: () {
-                              accept(message);}
-                              ),
-                        Spacer(),
-                        RaisedButton(elevation: 8,
-                            color: Colors.black,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                            child: Padding(padding: const EdgeInsets.fromLTRB(10,7,10,7),
-                              child: AutoSizeText("Decline",maxLines:1,style: GoogleFonts.amaticaSc(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700,)),),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            }),
-                        SizedBox(width: 20,),
-                      ])
-                  ]))])
-             ));}
-
+                      '$fromName has invited you to play!',
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.amaticaSc(
+                        color: Colors.black,
+                        fontSize: 32,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(children: <Widget>[
+                      SizedBox(
+                        width: 20,
+                      ),
+                      RaisedButton(
+                          elevation: 8,
+                          color: Colors.black,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              side: BorderSide(color: Colors.white)),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
+                            child: AutoSizeText("Accept",
+                                maxLines: 1,
+                                style: GoogleFonts.amaticaSc(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                )),
+                          ),
+                          onPressed: () {
+                            accept(message);
+                          }),
+                      Spacer(),
+                      RaisedButton(
+                          elevation: 8,
+                          color: Colors.black,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              side: BorderSide(color: Colors.white)),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 7, 10, 7),
+                            child: AutoSizeText("Decline",
+                                maxLines: 1,
+                                style: GoogleFonts.amaticaSc(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                )),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                      SizedBox(
+                        width: 20,
+                      ),
+                    ])
+                  ]))
+            ])));
+  }
 
   Future<FirebaseUser> _signInWithGoogle() async {
     GoogleSignInAccount googleUser = await _googleSignIn.signIn();
@@ -227,7 +361,10 @@ class FirstViewState extends State<FirstView> {
     await saveUserToFirebase(user);
     print("sae user ok");
 //    Navigator.of(context).pushNamed('userList');
-    Navigator.push(context,MaterialPageRoute(builder: (context) =>  UserList(title: 'Registered Players')));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => UserList(title: 'Registered Players')));
   }
 
   Future<void> saveUserToFirebase(FirebaseUser user) async {
@@ -239,16 +376,19 @@ class FirstViewState extends State<FirstView> {
       PHOTO_URL: user.photoUrl,
       PUSH_ID: token
     };
-    return FirebaseDatabase.instance.reference().child('users').child(user.uid).update(update);
-
+    return FirebaseDatabase.instance
+        .reference()
+        .child('users')
+        .child(user.uid)
+        .update(update);
   }
+
   saveUserToPreferences(String userId, String userName, String pushId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(USER_ID, userId);
     prefs.setString(PUSH_ID, pushId);
     prefs.setString(USER_NAME, userName);
   }
-
 
   void updateFcmToken() async {
     var currentUser = await _auth.currentUser();
@@ -273,7 +413,7 @@ class FirstViewState extends State<FirstView> {
     var username = prefs.getString(USER_NAME);
     var pushId = prefs.getString(PUSH_ID);
     var userId = prefs.getString(USER_ID);
-    username = username.replaceAll(' ','_');
+    username = username.replaceAll(' ', '_');
 
     var base = 'https://us-central1-zerokata-bf5ca.cloudfunctions.net';
     String dataURL =
@@ -282,6 +422,7 @@ class FirstViewState extends State<FirstView> {
     http.Response response = await http.get(dataURL);
 
     String gameId = '$fromId-$userId';
+    Navigator.of(context).pop();
 
     Navigator.of(context).push(new MaterialPageRoute(
         builder: (context) => new Online(
@@ -290,6 +431,7 @@ class FirstViewState extends State<FirstView> {
             me: 'O',
             gameId: gameId,
             withId: fromId)));
+    Navigator.of(context).pop();
   }
 
   void handleMessage(Map<String, dynamic> message) async {
@@ -313,5 +455,4 @@ class FirstViewState extends State<FirstView> {
               withId: fromId)));
     } else if (type == 'reject') {}
   }
-
 }
