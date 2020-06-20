@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "121886139018-3msflgn7d04re3cnqfqvgq9im03eakqd.apps.googleusercontent.com",
+          "client_id": "121886139018-9sh9eeolovue9foosho533tpslj5ep7p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.zerokata",
-            "certificate_hash": "aa9360e1b28de7b37199dc8dd2f060e21c014e3e"
+            "certificate_hash": "137fed12646e7f1022847d4396917e4a4cf1ceef"
           }
         },
         {
