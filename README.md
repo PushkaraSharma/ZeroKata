@@ -3,7 +3,7 @@ This is the cross platform tic tac toe application that comes with features like
  Offline play and Play with your friends.
  
  # Video Demo
- https://youtube.com/embed/pWR2A2jGUak
+  [<img src="https://img.youtube.com/vi/pWR2A2jGUak/maxresdefault.jpg" width="50%">](https://youtu.be/pWR2A2jGUak)
 
 
 
