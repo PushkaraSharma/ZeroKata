@@ -423,7 +423,7 @@ class FirstViewState extends State<FirstView> {
 
     String gameId = '$fromId-$userId';
     Navigator.of(context).pop();
-
+    print('Move to game');
     Navigator.of(context).push(new MaterialPageRoute(
         builder: (context) => new Online(
             title: 'Online ZeroKata',
@@ -431,7 +431,7 @@ class FirstViewState extends State<FirstView> {
             me: 'O',
             gameId: gameId,
             withId: fromId)));
-    Navigator.of(context).pop();
+    //Navigator.of(context).pop();
   }
 
   void handleMessage(Map<String, dynamic> message) async {
